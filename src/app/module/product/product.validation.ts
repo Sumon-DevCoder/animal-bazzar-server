@@ -1,65 +1,33 @@
 import { z } from "zod";
 
-export const createRoomSchemaValidation = z.object({
-  body: z.object({
-    name: z.string().min(1, "Room Name is Required"),
-    roomNo: z.number({
-      required_error: "Room Number is Required",
-    }),
-    floorNo: z.number({
-      required_error: "Floor Number is Required",
-    }),
-    capacity: z
-      .number({
-        required_error: "Capacity is Required",
-      })
-      .min(1, "Capacity must be at least 1"),
-    pricePerSlot: z
-      .number({
-        required_error: "Price per slot is required",
-      })
-      .min(0, "Price per slot cannot be negative"),
-    amenities: z.array(z.string()).min(1, "At least one amenity is required"),
-    isDeleted: z.boolean().optional(),
-    img: z.array(z.string()).min(3, "At least 3 img is required"),
-  }),
+// Create Product Schema validaiton
+export const createProductValidationSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  price: z.number().min(0, "Price must be a positive number"),
+  stockQuantity: z
+    .number()
+    .int()
+    .nonnegative("Stock quantity cannot be negative"),
+  category: z.string().min(1, "Category is required"),
+  image: z.string().url("Image must be a valid URL"),
 });
 
-export const updateRoomSchemaValidation = z.object({
-  body: z.object({
-    name: z.string().min(1, "Room Name is Required").optional(),
-    roomNo: z
-      .number({
-        required_error: "Room Number is Required",
-      })
-      .optional(),
-    floorNo: z
-      .number({
-        required_error: "Floor Number is Required",
-      })
-      .optional(),
-    capacity: z
-      .number({
-        required_error: "Capacity is Required",
-      })
-      .min(1, "Capacity must be at least 1")
-      .optional(),
-    pricePerSlot: z
-      .number({
-        required_error: "Price per slot is required",
-      })
-      .min(0, "Price per slot cannot be negative")
-      .optional(),
-    amenities: z
-      .array(z.string())
-      .min(1, "At least one amenity is required")
-      .optional(),
-    isDeleted: z.boolean().optional(),
-    img: z.array(z.string()).min(3, "At least 3 img is required").optional(),
-  }),
+// Update Product Schema validaiton
+export const updateProductValidationSchema = z.object({
+  name: z.string().min(1, "Name is required").optional(),
+  description: z.string().min(1, "Description is required").optional(),
+  price: z.number().min(0, "Price must be a positive number").optional(),
+  stockQuantity: z
+    .number()
+    .int()
+    .nonnegative("Stock quantity cannot be negative")
+    .optional(),
+  category: z.string().min(1, "Category is required").optional(),
+  image: z.string().url("Image must be a valid URL").optional(),
 });
 
-export const roomSchemaValidation = {
-  createRoomSchemaValidation,
-  updateRoomSchemaValidation,
+export const ProductValidaitonSchema = {
+  createProductValidationSchema,
+  updateProductValidationSchema,
 };
