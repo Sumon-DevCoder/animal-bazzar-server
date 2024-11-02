@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserRoutes } from "../module/user/user.route";
 import { AuthRoutes } from "../module/auth/auth.route";
-import { RoomRoutes } from "../module/room/room.route";
+import { RoomRoutes } from "../module/product/product.route";
 import { BookingRoutes } from "../module/booking/booking.route";
 import { slotRoutes } from "../module/slot/slot.route";
 import { PaymentRoutes } from "../module/payment/payment.route";

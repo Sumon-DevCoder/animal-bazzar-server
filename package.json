@@ -2,6 +2,7 @@
   "name": "animal-bazaar-server",
   "version": "1.0.0",
   "main": "./dist/server.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
@@ -20,6 +21,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "http-status": "^2.0.0",
+    "http-status-codes": "^2.3.0",
+    "http-status-ts": "^2.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.0",
     "ts-node-dev": "^2.0.0",
@@ -27,6 +30,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "typescript": "^5.6.3"
   }
 }

@@ -24,7 +24,7 @@ app.use("/api", router);
 
 // route
 app.get("/", (req, res) => {
-  res.send("meeting room booking server is running...");
+  res.send("Animal Bazaar server is running...");
 });
 
 // global error handler
