@@ -1,76 +1,80 @@
 import { StatusCodes } from "http-status-codes";
-import { RoomServices } from "./product.service";
+import { ProductServices } from "./product.service";
 import { Request, Response } from "express";
 import catchAsync from "../../utiils/catchAsync";
 import sendResponse from "../../utiils/sendResponse";
 
 // create
-const createRoom = catchAsync(async (req: Request, res: Response) => {
-  const result = await RoomServices.createRoomIntoDB(req.body);
+const createProduct = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductServices.createProductIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Room added successfully",
+    message: "Product added successfully",
     data: result,
   });
 });
 
 // get all
-const getAllRooms = catchAsync(async (req: Request, res: Response) => {
-  const result = await RoomServices.getAllRoomFromDB(req.query);
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductServices.getAllProductFromDB(req.query);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Room retrieved successfully",
+    message: "Product retrieved successfully",
     data: result,
   });
 });
 
 // get single
-const getSingleRooms = catchAsync(async (req: Request, res: Response) => {
-  const result = await RoomServices.getSingleRoomFromDB(req.params.roomId);
+const getSingleProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductServices.getSingleProductFromDB(
+    req.params.productId
+  );
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Room retrieved successfully",
+    message: "Product retrieved successfully",
     data: result,
   });
 });
 
 // update
-const updateRoom = catchAsync(async (req: Request, res: Response) => {
-  const result = await RoomServices.updateRoomIntoDB(
-    req.params.roomId,
+const updateProduct = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductServices.updateProductIntoDB(
+    req.params.ProductId,
     req.body
   );
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Room updated successfully",
+    message: "Product updated successfully",
     data: result,
   });
 });
 
 // delete
-const deleteRoom = catchAsync(async (req: Request, res: Response) => {
-  const result = await RoomServices.deleteRoomIntoDB(req.params.roomId);
+const deleteProduct = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductServices.deleteProductIntoDB(
+    req.params.ProductId
+  );
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Room deleted successfully",
+    message: "Product deleted successfully",
     data: result,
   });
 });
 
-export const RoomControllers = {
-  deleteRoom,
-  updateRoom,
-  createRoom,
-  getAllRooms,
-  getSingleRooms,
+export const ProductControllers = {
+  deleteProduct,
+  updateProduct,
+  createProduct,
+  getAllProducts,
+  getSingleProducts,
 };

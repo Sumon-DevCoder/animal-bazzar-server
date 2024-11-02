@@ -1,41 +1,41 @@
 import { StatusCodes } from "http-status-codes";
 import AppError from "../../error/AppError";
-import { TRoom } from "./room.interface";
-import { Room } from "./product.model";
+import { Product } from "./product.model";
 import QueryBuilder from "../../builder/QueryBuilder";
-import { roomSearchableFields } from "./product.constant";
+import { TProduct } from "./product.interface";
+import { ProductSearchableFields } from "./product.constant";
 
 // create
-const createRoomIntoDB = async (payload: TRoom) => {
-  // room checking
-  const isRoomExists = await Room.findOne({
-    roomNo: payload.roomNo,
+const createProductIntoDB = async (payload: TProduct) => {
+  // Product checking
+  const isProductExists = await Product.findOne({
+    name: payload.name,
   });
 
-  if (isRoomExists) {
-    throw new AppError(StatusCodes.CONFLICT, "Room already exists");
+  if (isProductExists) {
+    throw new AppError(StatusCodes.CONFLICT, "Product already exists");
   }
 
-  const result = await Room.create(payload);
+  const result = await Product.create(payload);
   return result;
 };
 
 // get all
-const getAllRoomFromDB = async (query: Record<string, unknown>) => {
+const getAllProductFromDB = async (query: Record<string, unknown>) => {
   // queryBuilder
-  const roomQuery = new QueryBuilder(Room.find(), query)
-    .search(roomSearchableFields)
+  const ProductQuery = new QueryBuilder(Product.find(), query)
+    .search(ProductSearchableFields)
     .filter()
     .sort()
     .paginate()
     .fields();
 
-  const meta = await roomQuery.countTotal();
-  const result = await roomQuery.modelQuery;
+  const meta = await ProductQuery.countTotal();
+  const result = await ProductQuery.modelQuery;
 
   // checking data
   if (result.length === 0) {
-    throw new AppError(StatusCodes.NOT_FOUND, "rooms not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, "Products not Exist!");
   }
 
   return {
@@ -45,40 +45,40 @@ const getAllRoomFromDB = async (query: Record<string, unknown>) => {
 };
 
 // get single
-const getSingleRoomFromDB = async (_id: string) => {
-  const result = await Room.findById({ _id });
+const getSingleProductFromDB = async (_id: string) => {
+  const result = await Product.findById({ _id });
 
   // checking data
   if (result === null) {
-    throw new AppError(StatusCodes.NOT_FOUND, "rooms not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, "Products not exist!");
   }
 
   return result;
 };
 
 // update
-const updateRoomIntoDB = async (_id: string, payload: Partial<TRoom>) => {
-  // room checking
-  const isRoomExists = await Room.findById({ _id });
-  if (!isRoomExists) {
-    throw new AppError(StatusCodes.CONFLICT, "Room not found!");
+const updateProductIntoDB = async (_id: string, payload: Partial<TProduct>) => {
+  // Product checking
+  const isProductExists = await Product.findById({ _id });
+  if (!isProductExists) {
+    throw new AppError(StatusCodes.CONFLICT, "Product not exists!");
   }
 
-  const result = await Room.findByIdAndUpdate({ _id }, payload, {
+  const result = await Product.findByIdAndUpdate({ _id }, payload, {
     new: true,
   });
   return result;
 };
 
 // update
-const deleteRoomIntoDB = async (_id: string) => {
-  // room checking
-  const room = await Room.findById({ _id });
-  if (!room) {
-    throw new AppError(StatusCodes.CONFLICT, "Room not found!");
+const deleteProductIntoDB = async (_id: string) => {
+  // Product checking
+  const ProductData = await Product.findById({ _id });
+  if (!ProductData) {
+    throw new AppError(StatusCodes.CONFLICT, "Product not exists!");
   }
 
-  const result = await Room.findByIdAndUpdate(
+  const result = await Product.findByIdAndUpdate(
     _id,
     { isDeleted: true },
     {
@@ -88,10 +88,10 @@ const deleteRoomIntoDB = async (_id: string) => {
   return result;
 };
 
-export const RoomServices = {
-  createRoomIntoDB,
-  getSingleRoomFromDB,
-  getAllRoomFromDB,
-  updateRoomIntoDB,
-  deleteRoomIntoDB,
+export const ProductServices = {
+  createProductIntoDB,
+  getSingleProductFromDB,
+  getAllProductFromDB,
+  updateProductIntoDB,
+  deleteProductIntoDB,
 };

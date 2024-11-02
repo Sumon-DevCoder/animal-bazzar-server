@@ -4,5 +4,6 @@ export type TProduct = {
   price: number;
   stockQuantity: number;
   category: string;
+  isDeleted: boolean;
   image: string;
 };

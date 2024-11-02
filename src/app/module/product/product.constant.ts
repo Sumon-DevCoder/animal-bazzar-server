@@ -1,1 +1,1 @@
-export const roomSearchableFields = ["name", "roomNo", "floorNo"];
+export const ProductSearchableFields = ["name", "category"];

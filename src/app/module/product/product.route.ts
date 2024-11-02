@@ -1,35 +1,39 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
-import { roomSchemaValidation } from "./product.validation";
 import { auth } from "../../middlewares/auth";
 import { USER_ROLE } from "../user/user.constant";
-import { RoomControllers } from "./product.controller";
+import { ProductControllers } from "./product.controller";
+import { ProductValidaitonSchema } from "./product.validation";
 
 const router = Router();
 
 // create
 router.post(
   "/",
-  validateRequest(roomSchemaValidation.createRoomSchemaValidation),
+  validateRequest(ProductValidaitonSchema.createProductValidationSchema),
   auth(USER_ROLE.admin),
-  RoomControllers.createRoom
+  ProductControllers.createProduct
 );
 
 // get all
-router.get("/", RoomControllers.getAllRooms);
+router.get("/", ProductControllers.getAllProducts);
 
 // get single
-router.get("/:roomId", RoomControllers.getSingleRooms);
+router.get("/:productId", ProductControllers.getSingleProducts);
 
 // update
 router.put(
-  "/:roomId",
-  validateRequest(roomSchemaValidation.updateRoomSchemaValidation),
+  "/:productId",
+  validateRequest(ProductValidaitonSchema.updateProductValidationSchema),
   auth(USER_ROLE.admin),
-  RoomControllers.updateRoom
+  ProductControllers.updateProduct
 );
 
 // delete
-router.delete("/:roomId", auth(USER_ROLE.admin), RoomControllers.deleteRoom);
+router.delete(
+  "/:productId",
+  auth(USER_ROLE.admin),
+  ProductControllers.deleteProduct
+);
 
-export const RoomRoutes = router;
+export const ProductRoutes = router;

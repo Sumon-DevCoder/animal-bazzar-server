@@ -5,6 +5,7 @@ export const createProductValidationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   price: z.number().min(0, "Price must be a positive number"),
+  isDeleted: z.boolean().default(false).optional(),
   stockQuantity: z
     .number()
     .int()
@@ -25,6 +26,7 @@ export const updateProductValidationSchema = z.object({
     .optional(),
   category: z.string().min(1, "Category is required").optional(),
   image: z.string().url("Image must be a valid URL").optional(),
+  isDeleted: z.boolean().default(false).optional(),
 });
 
 export const ProductValidaitonSchema = {
