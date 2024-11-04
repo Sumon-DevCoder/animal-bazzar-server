@@ -23,7 +23,7 @@ router.get("/:productId", ProductControllers.getSingleProducts);
 
 // update
 router.put(
-  "/:productId",
+  "/:id",
   validateRequest(ProductValidaitonSchema.updateProductValidationSchema),
   auth(USER_ROLE.admin),
   ProductControllers.updateProduct
