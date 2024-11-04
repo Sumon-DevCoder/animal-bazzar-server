@@ -46,7 +46,21 @@ const updateUserIntoDB = async (_id: string, payload: Partial<TUser>) => {
   return result;
 };
 
+const deleteUserIntoDB = async (_id: string) => {
+  // User checking
+  const UserData = await User.findById({ _id });
+  if (!UserData) {
+    throw new AppError(StatusCodes.CONFLICT, "User not exists!");
+  }
+
+  const result = await User.findByIdAndDelete(_id, {
+    new: true,
+  });
+  return result;
+};
+
 export const UserServices = {
   updateUserIntoDB,
   getAllUsersFromDB,
+  deleteUserIntoDB,
 };

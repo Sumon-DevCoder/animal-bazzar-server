@@ -60,7 +60,7 @@ const updateProduct = catchAsync(async (req: Request, res: Response) => {
 // delete
 const deleteProduct = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductServices.deleteProductIntoDB(
-    req.params.ProductId
+    req.params.productId
   );
 
   sendResponse(res, {

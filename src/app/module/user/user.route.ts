@@ -22,6 +22,9 @@ router.put(
   UserControllers.updateUser
 );
 
+// delete
+router.delete("/:userId", auth(USER_ROLE.admin), UserControllers.deleteUser);
+
 // // update only user own profile
 // router.put(
 //   "/me",
