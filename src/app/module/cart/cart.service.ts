@@ -56,13 +56,17 @@ const getSingleCartFromDB = async (_id: string) => {
   return result;
 };
 
-// get single
-const getSingleCartByUserFromDB = async (email: string) => {
+const getCartByUserFromDB = async (email: string) => {
+  // Using `find` to fetch all carts for the user
+
+  console.log(email);
   const result = await Cart.find({ user: email });
 
-  // checking data
-  if (result === null) {
-    throw new AppError(StatusCodes.NOT_FOUND, "Carts not exist!");
+  console.log(result);
+
+  // Check if the result is an empty array
+  if (result.length === 0) {
+    throw new AppError(StatusCodes.NOT_FOUND, "No carts found for this user!");
   }
 
   return result;
@@ -106,5 +110,5 @@ export const CartServices = {
   getAllCartFromDB,
   updateCartIntoDB,
   deleteCartIntoDB,
-  getSingleCartByUserFromDB,
+  getCartByUserFromDB,
 };

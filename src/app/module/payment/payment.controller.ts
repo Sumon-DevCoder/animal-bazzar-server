@@ -1,22 +1,19 @@
 import { Request, Response } from "express";
-import catchAsync from "../../utiils/catchAsync";
-import { PaymentServices } from "./payment.service";
-import sendResponse from "../../utiils/sendResponse";
-import { StatusCodes } from "http-status-codes";
+import { paymentServices } from "./payment.service";
 
-const getPaymentByUser = catchAsync(async (req: Request, res: Response) => {
-  const { userEmail } = req.params;
+const confirmationController = async (req: Request, res: Response) => {
+  const { transactionId, status } = req.query;
 
-  const result = await PaymentServices.getPaymentByUserFromDB(userEmail);
+  console.log("req.query", req.query);
 
-  sendResponse(res, {
-    statusCode: StatusCodes.OK,
-    success: true,
-    message: "Payment retrieved successfully",
-    data: result,
-  });
-});
+  const result = await paymentServices.confirmationService(
+    transactionId as string,
+    status as string
+  );
 
-export const PaymentControllers = {
-  getPaymentByUser,
+  res.send(result);
+};
+
+export const paymentControler = {
+  confirmationController,
 };

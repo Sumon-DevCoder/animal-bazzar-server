@@ -23,9 +23,9 @@ router.get(
 
 // get single by user
 router.get(
-  "/:email",
+  "/user/:email",
   auth(USER_ROLE.user, USER_ROLE.admin),
-  CartControllers.getSingleCarts
+  CartControllers.getCartsByUser
 );
 
 // update

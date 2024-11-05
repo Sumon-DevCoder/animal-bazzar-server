@@ -6,8 +6,6 @@ import sendResponse from "../../utiils/sendResponse";
 
 // create
 const createCart = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body);
-
   const result = await CartServices.createCartIntoDB(req.body);
 
   sendResponse(res, {
@@ -43,8 +41,8 @@ const getSingleCarts = catchAsync(async (req: Request, res: Response) => {
 });
 
 // get cart by user
-const getSingleCartsByUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await CartServices.getSingleCartFromDB(req.params.email);
+const getCartsByUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await CartServices.getCartByUserFromDB(req.params.email);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -84,5 +82,5 @@ export const CartControllers = {
   createCart,
   getAllCarts,
   getSingleCarts,
-  getSingleCartsByUser,
+  getCartsByUser,
 };
