@@ -1,15 +1,22 @@
 import { Types } from "mongoose";
 
-export enum BookingStatus {
+export enum CartStatus {
   confirmed = "confirmed",
   unconfirmed = "unconfirmed",
   canceled = "canceled",
 }
 
+export enum PaymentStatus {
+  Paid = "paid",
+  unpaid = "unpaid",
+}
+
 export type TCart = {
   product: Types.ObjectId;
-  user: Types.ObjectId;
-  totalAmount: number;
-  isConfirmed: BookingStatus;
+  productName: string;
+  user: string;
+  paymentStatus: PaymentStatus;
+  price: number;
+  isConfirmed: CartStatus;
   isDeleted: boolean;
 };

@@ -9,7 +9,7 @@ import { CartSearchableFields } from "./cart.constant";
 const createCartIntoDB = async (payload: TCart) => {
   // Cart checking
   const isCartExists = await Cart.findOne({
-    name: payload.product,
+    product: payload.product,
   });
 
   if (isCartExists) {
@@ -23,7 +23,7 @@ const createCartIntoDB = async (payload: TCart) => {
 // get all
 const getAllCartFromDB = async (query: Record<string, unknown>) => {
   // queryBuilder
-  const CartQuery = new QueryBuilder(Cart.find(), query)
+  const CartQuery = new QueryBuilder(Cart.find().populate("product"), query)
     .search(CartSearchableFields)
     .filter()
     .sort()
@@ -47,6 +47,18 @@ const getAllCartFromDB = async (query: Record<string, unknown>) => {
 // get single
 const getSingleCartFromDB = async (_id: string) => {
   const result = await Cart.findById({ _id });
+
+  // checking data
+  if (result === null) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Carts not exist!");
+  }
+
+  return result;
+};
+
+// get single
+const getSingleCartByUserFromDB = async (email: string) => {
+  const result = await Cart.find({ user: email });
 
   // checking data
   if (result === null) {
@@ -94,4 +106,5 @@ export const CartServices = {
   getAllCartFromDB,
   updateCartIntoDB,
   deleteCartIntoDB,
+  getSingleCartByUserFromDB,
 };

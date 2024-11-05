@@ -1,6 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
-import { BookingStatus, TCart } from "./cart.interface";
+import { CartStatus, PaymentStatus, TCart } from "./cart.interface";
 import { queryMiddlewareChecking } from "../../utiils/queryMiddlewareChecking";
+import { string } from "zod";
 
 const CartSchema: Schema = new Schema<TCart>(
   {
@@ -10,18 +11,28 @@ const CartSchema: Schema = new Schema<TCart>(
       ref: "Product",
     },
     user: {
-      type: Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: "User", //
     },
-    totalAmount: {
+
+    price: {
       type: Number,
+      required: true,
+    },
+    productName: {
+      type: String,
       required: true,
     },
     isConfirmed: {
       type: String,
-      enum: Object.values(BookingStatus),
-      default: BookingStatus.unconfirmed,
+      enum: Object.values(CartStatus),
+      default: CartStatus.unconfirmed,
+    },
+    paymentStatus: {
+      type: String,
+      enum: Object.values(PaymentStatus),
+      default: PaymentStatus.unpaid,
     },
     isDeleted: {
       type: Boolean,

@@ -21,9 +21,9 @@ router.get(
   CartControllers.getAllCarts
 );
 
-// get single
+// get single by user
 router.get(
-  "/:CartId",
+  "/:email",
   auth(USER_ROLE.user, USER_ROLE.admin),
   CartControllers.getSingleCarts
 );

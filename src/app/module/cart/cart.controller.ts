@@ -6,6 +6,8 @@ import sendResponse from "../../utiils/sendResponse";
 
 // create
 const createCart = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body);
+
   const result = await CartServices.createCartIntoDB(req.body);
 
   sendResponse(res, {
@@ -31,6 +33,18 @@ const getAllCarts = catchAsync(async (req: Request, res: Response) => {
 // get single
 const getSingleCarts = catchAsync(async (req: Request, res: Response) => {
   const result = await CartServices.getSingleCartFromDB(req.params.CartId);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Cart retrieved successfully",
+    data: result,
+  });
+});
+
+// get cart by user
+const getSingleCartsByUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await CartServices.getSingleCartFromDB(req.params.email);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -70,4 +84,5 @@ export const CartControllers = {
   createCart,
   getAllCarts,
   getSingleCarts,
+  getSingleCartsByUser,
 };
