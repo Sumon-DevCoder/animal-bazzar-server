@@ -61,6 +61,19 @@ const getAllOrderFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+// get all by user
+const getAllOrderByUserFromDB = async (email: string) => {
+  // queryBuilder
+  const result = await Order.find({ "user.email": email });
+
+  // checking data
+  if (result.length === 0) {
+    throw new AppError(StatusCodes.NOT_FOUND, "No Order Available!");
+  }
+
+  return result;
+};
+
 // update
 const updateOrderIntoDB = async (_id: string, payload: Partial<IOrder>) => {
   // Order checking
@@ -92,4 +105,5 @@ export const orderService = {
   getAllOrderFromDB,
   updateOrderIntoDB,
   deleteOrderIntoDB,
+  getAllOrderByUserFromDB,
 };

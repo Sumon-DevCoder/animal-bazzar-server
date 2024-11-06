@@ -29,7 +29,19 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Product retrieved successfully",
+    message: "Order retrieved successfully",
+    data: result,
+  });
+});
+
+// get all user
+const getAllOrdersByUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await orderService.getAllOrderByUserFromDB(req.params.email);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Order retrieved successfully",
     data: result,
   });
 });
@@ -63,4 +75,5 @@ export const OrderControler = {
   getAllOrders,
   deleteOrder,
   updateOrder,
+  getAllOrdersByUser,
 };

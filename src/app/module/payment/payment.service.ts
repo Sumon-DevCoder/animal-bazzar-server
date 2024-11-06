@@ -28,7 +28,7 @@ const confirmationService = async (transactionId: string, status: string) => {
         
         <!-- Stylish Success Button -->
         <button style="padding: 15px 30px; font-size: 18px; color: white; background-color: #4CAF50; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease;">
-          <a href="http://localhost:3000/cart" style="text-decoration: none; color: white;">Go to Cart</a>
+          <a href="http://localhost:3000/dashboard/order-history" style="text-decoration: none; color: white;">Go Order Details</a>
         </button>
         
         <p style="margin-top: 20px; font-size: 16px; color: #777;">If you're not redirected automatically, click the button above.</p>

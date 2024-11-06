@@ -10,6 +10,7 @@ const createCartIntoDB = async (payload: TCart) => {
   // Cart checking
   const isCartExists = await Cart.findOne({
     product: payload.product,
+    email: payload.user,
   });
 
   if (isCartExists) {

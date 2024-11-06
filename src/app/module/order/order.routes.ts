@@ -11,6 +11,13 @@ router.post("/create", createOrderController);
 // get all
 router.get("/", auth(USER_ROLE.admin), OrderControler.getAllOrders);
 
+// get all user
+router.get(
+  "/:email",
+  auth(USER_ROLE.admin, USER_ROLE.user),
+  OrderControler.getAllOrdersByUser
+);
+
 // update
 router.put("/:orderId", auth(USER_ROLE.admin), OrderControler.updateOrder);
 
