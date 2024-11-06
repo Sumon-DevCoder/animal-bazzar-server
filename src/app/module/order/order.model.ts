@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IOrder extends Document {
+export interface IOrder extends Document {
   user: {
     name: string;
     email: string;
@@ -27,7 +27,7 @@ const OrderSchema: Schema = new Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Paid", "Shipped", "Completed", "Cancelled"],
+      enum: ["unconfirmed", "confirmed"],
       default: "Pending",
     },
     paymentStatus: {

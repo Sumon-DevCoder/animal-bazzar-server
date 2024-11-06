@@ -1,5 +1,8 @@
+import { StatusCodes } from "http-status-codes";
+import QueryBuilder from "../../builder/QueryBuilder";
+import AppError from "../../error/AppError";
 import { initiatePayment } from "../payment/payment.utils";
-import { Order } from "./order.model";
+import { IOrder, Order } from "./order.model";
 
 const createOrder = async (orderData: any) => {
   const { user, products } = orderData;
@@ -13,7 +16,7 @@ const createOrder = async (orderData: any) => {
   const order = new Order({
     user,
     totalPrice,
-    status: "Pending",
+    status: "unconfirmed",
     paymentStatus: "Pending",
     transactionId,
   });
@@ -35,6 +38,58 @@ const createOrder = async (orderData: any) => {
   return paymentSession;
 };
 
+// get all
+const getAllOrderFromDB = async (query: Record<string, unknown>) => {
+  // queryBuilder
+  const orderQuery = new QueryBuilder(Order.find().populate("user"), query)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const meta = await orderQuery.countTotal();
+  const result = await orderQuery.modelQuery;
+
+  // checking data
+  if (result.length === 0) {
+    throw new AppError(StatusCodes.NOT_FOUND, "No Order Available!");
+  }
+
+  return {
+    meta,
+    result,
+  };
+};
+
+// update
+const updateOrderIntoDB = async (_id: string, payload: Partial<IOrder>) => {
+  // Order checking
+
+  const result = await Order.findByIdAndUpdate(_id, payload, {
+    new: true,
+  });
+
+  console.log(result);
+
+  return result;
+};
+
+const deleteOrderIntoDB = async (_id: string) => {
+  // Order checking
+  const OrderData = await Order.findById({ _id });
+  if (!OrderData) {
+    throw new AppError(StatusCodes.CONFLICT, "Order not exists!");
+  }
+
+  const result = await Order.findByIdAndDelete(_id, {
+    new: true,
+  });
+  return result;
+};
+
 export const orderService = {
   createOrder,
+  getAllOrderFromDB,
+  updateOrderIntoDB,
+  deleteOrderIntoDB,
 };
