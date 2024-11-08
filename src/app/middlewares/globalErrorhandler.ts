@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
 import config from "../config";
@@ -11,7 +9,7 @@ import handleDuplicateError from "../error/handleDuplicateError";
 import AppError from "../error/AppError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  //setting default values
+  // Setting default values
   let statusCode = 500;
   let message = "Something went wrong!";
   let errorSources: TErrorSources = [
@@ -60,14 +58,15 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     ];
   }
 
-  //ultimate return
-  return res.status(statusCode).json({
+  // Ultimate return (DO NOT return anything, just send the response)
+  res.status(statusCode).json({
     success: false,
     message,
     errorSources,
     err,
     stack: config.NODE_ENV === "development" ? err?.stack : null,
   });
+  next(); // If you want to pass the error to the next middleware
 };
 
 export default globalErrorHandler;
