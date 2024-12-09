@@ -11,10 +11,11 @@ const globalErrorhandler_1 = __importDefault(require("./app/middlewares/globalEr
 const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 // parser
 app.use(express_1.default.json());
-app.use(express_1.default.urlencoded());
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000",
+    origin: true,
     credentials: true,
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Origin", "Accept"],
 }));
 // application route
 app.use("/api", routes_1.default);

@@ -38,6 +38,11 @@ const getAllUsersFromDB = (query) => __awaiter(void 0, void 0, void 0, function*
         result,
     };
 });
+// get user by email
+const getUserByEmailFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findOne({ email });
+    return result;
+});
 // update
 const updateUserIntoDB = (_id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // user checking
@@ -66,4 +71,5 @@ exports.UserServices = {
     updateUserIntoDB,
     getAllUsersFromDB,
     deleteUserIntoDB,
+    getUserByEmailFromDB,
 };

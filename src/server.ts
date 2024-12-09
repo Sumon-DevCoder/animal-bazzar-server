@@ -6,10 +6,7 @@ import { Server } from "http";
 let server: Server;
 
 async function main() {
-  console.log(config.db_url);
-
   try {
-    // await mongoose.connect(config.db_url as string);
     await mongoose.connect(config.db_url as string);
 
     app.listen(config.port, () => {

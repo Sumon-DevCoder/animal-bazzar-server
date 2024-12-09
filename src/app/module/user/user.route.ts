@@ -14,6 +14,13 @@ router.get(
   UserControllers.getAllUsers
 );
 
+// get user by email
+router.get(
+  "/:email",
+  auth(USER_ROLE.admin, USER_ROLE.user),
+  UserControllers.getUserByEmail
+);
+
 // update user
 router.put(
   "/:userId",

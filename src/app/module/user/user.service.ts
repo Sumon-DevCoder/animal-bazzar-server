@@ -29,6 +29,12 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+// get user by email
+const getUserByEmailFromDB = async (email: string) => {
+  const result = await User.findOne({ email });
+  return result;
+};
+
 // update
 const updateUserIntoDB = async (_id: string, payload: Partial<TUser>) => {
   // user checking
@@ -63,4 +69,5 @@ export const UserServices = {
   updateUserIntoDB,
   getAllUsersFromDB,
   deleteUserIntoDB,
+  getUserByEmailFromDB,
 };

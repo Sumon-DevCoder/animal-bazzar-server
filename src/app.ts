@@ -7,11 +7,13 @@ import notFound from "./app/middlewares/notFound";
 
 // parser
 app.use(express.json());
-app.use(express.urlencoded());
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: true,
     credentials: true,
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Origin", "Accept"],
   })
 );
 

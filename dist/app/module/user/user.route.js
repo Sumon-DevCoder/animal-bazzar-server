@@ -13,6 +13,8 @@ const auth_1 = require("../../middlewares/auth");
 const router = (0, express_1.Router)();
 // get all users
 router.get("/", (0, auth_1.auth)(user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.user), user_controller_1.UserControllers.getAllUsers);
+// get user by email
+router.get("/:email", (0, auth_1.auth)(user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.user), user_controller_1.UserControllers.getUserByEmail);
 // update user
 router.put("/:userId", (0, validateRequest_1.default)(user_validation_1.userSchemaValidation.updateUserValidationSchema), (0, auth_1.auth)(user_constant_1.USER_ROLE.admin), user_controller_1.UserControllers.updateUser);
 // delete

@@ -16,6 +16,18 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// get single user
+const getUserByEmail = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserServices.getUserByEmailFromDB(req.params.email);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "User Data fetched successfully",
+    data: result,
+  });
+});
+
 // update
 const updateUser = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
@@ -45,4 +57,5 @@ export const UserControllers = {
   getAllUsers,
   updateUser,
   deleteUser,
+  getUserByEmail,
 };
