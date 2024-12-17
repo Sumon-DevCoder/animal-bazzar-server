@@ -30,10 +30,24 @@ const ProductSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    isDeleted: { type: Boolean, default: false },
     stockQuantity: { type: Number, required: true },
     category: { type: String, required: true },
-    image: { type: String, required: true },
+    isDeleted: { type: Boolean, default: false },
+    img: { type: [String], required: true },
+    age: {
+        value: { type: Number, required: true },
+        unit: {
+            type: String,
+            enum: ["day", "week", "month", "year"],
+            required: true,
+        },
+    },
+    like: { type: Number, default: 0 },
+    color: { type: String, required: true },
+    size: {
+        value: { type: Number, required: true },
+        unit: { type: String, enum: ["kg", "gm"], required: true },
+    },
 }, { timestamps: true });
 (0, queryMiddlewareChecking_1.queryMiddlewareChecking)(ProductSchema, "isDeleted", true);
 exports.Product = mongoose_1.default.model("Product", ProductSchema);

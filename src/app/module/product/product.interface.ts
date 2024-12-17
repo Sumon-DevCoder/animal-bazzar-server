@@ -5,5 +5,15 @@ export type TProduct = {
   stockQuantity: number;
   category: string;
   isDeleted: boolean;
-  image: string;
+  img: string[];
+  age: {
+    value: number;
+    unit: "day" | "week" | "month" | "year";
+  };
+  like: number;
+  color: string;
+  size: {
+    value: number;
+    unit: "kg" | "gm";
+  };
 };

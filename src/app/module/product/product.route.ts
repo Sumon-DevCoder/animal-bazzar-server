@@ -3,14 +3,14 @@ import validateRequest from "../../middlewares/validateRequest";
 import { auth } from "../../middlewares/auth";
 import { USER_ROLE } from "../user/user.constant";
 import { ProductControllers } from "./product.controller";
-import { ProductValidaitonSchema } from "./product.validation";
+import { ProductValidationSchema } from "./product.validation";
 
 const router = Router();
 
 // create
 router.post(
   "/",
-  validateRequest(ProductValidaitonSchema.createProductValidationSchema),
+  validateRequest(ProductValidationSchema.createProductValidationSchema),
   auth(USER_ROLE.admin),
   ProductControllers.createProduct
 );
@@ -24,7 +24,7 @@ router.get("/:productId", ProductControllers.getSingleProducts);
 // update
 router.put(
   "/:id",
-  validateRequest(ProductValidaitonSchema.updateProductValidationSchema),
+  validateRequest(ProductValidationSchema.updateProductValidationSchema),
   auth(USER_ROLE.admin),
   ProductControllers.updateProduct
 );
